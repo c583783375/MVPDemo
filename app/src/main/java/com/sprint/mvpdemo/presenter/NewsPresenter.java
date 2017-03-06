@@ -24,10 +24,12 @@ public class NewsPresenter extends BasePresenter<INewsView>{
 
     public void fetch()
     {
+        if(mNewsView == null){return;}
         mNewsView.showLoading();
         newsModel.loaderNewsData(new INewsModel.NewsLoaderDataListener(){
             @Override
             public void onComplete(List<String> news) {
+                //这边一般是子线程加载数据 所有要放在主线程更新UI
                 mNewsView.showNews(news);
             }
         });
